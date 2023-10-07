@@ -1,11 +1,17 @@
 package dev.joelfrancisco.abp.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
 public class Tag extends BaseEntity {
+    @Column(name = "name")
     private String name;
+    @Column(name = "user")
     private User user;
     private final Set<Recipient> recipients = new HashSet<>();
     private final Set<Template> templates = new HashSet<>();

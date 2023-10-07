@@ -1,7 +1,6 @@
 package dev.joelfrancisco.abp.entities;
 
 import dev.joelfrancisco.abp.exceptions.UserCreationException;
-import dev.joelfrancisco.abp.valueObjects.Email;
 import dev.joelfrancisco.abp.valueObjects.UserPassword;
 
 import java.util.HashSet;
@@ -12,7 +11,7 @@ public class User extends BaseEntity {
     private String name;
     private String username;
     private UserPassword passwordHash;
-    private Email defaultEmail;
+    private EmailCredentials defaultEmail;
     private Set<EmailCredentials> emailCredentials = new HashSet<>();
 
     private static User newUser(String username, UserPassword passwordHash, String name, Set<EmailCredentials> credentials) throws UserCreationException {
@@ -54,11 +53,11 @@ public class User extends BaseEntity {
         this.passwordHash = passwordHash;
     }
 
-    public Email getDefaultEmail() {
+    public EmailCredentials getDefaultEmail() {
         return defaultEmail;
     }
 
-    public void setDefaultEmail(Email defaultEmail) {
+    public void setDefaultEmail(EmailCredentials defaultEmail) {
         this.defaultEmail = defaultEmail;
     }
 

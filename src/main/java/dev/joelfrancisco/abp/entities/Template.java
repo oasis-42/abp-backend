@@ -1,11 +1,11 @@
 package dev.joelfrancisco.abp.entities;
 
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Template extends BaseEntity {
+    private UUID template_id;
+    private int version;
     private String name;
     private String about;
     private URL linkHTML;
@@ -57,5 +57,21 @@ public class Template extends BaseEntity {
 
     public void setUser(User user) {
         this.user = Objects.requireNonNull(user, "user should not be null");
+    }
+
+    public UUID getTemplate_id() {
+        return template_id;
+    }
+
+    public void setTemplate_id(UUID template_id) {
+        this.template_id = template_id;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

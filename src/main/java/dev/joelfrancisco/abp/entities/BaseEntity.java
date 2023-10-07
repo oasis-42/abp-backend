@@ -1,32 +1,40 @@
 package dev.joelfrancisco.abp.entities;
 
-import dev.joelfrancisco.abp.valueObjects.EntityId;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
+@MappedSuperclass
 public abstract class BaseEntity {
-    private EntityId id;
+    @Id
+    @Column(name = "id")
+    private UUID id;
+    @Column(name = "created_at")
     private LocalDate createdAt;
+    @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    public BaseEntity(EntityId id, LocalDate createdAt, LocalDate updatedAt) {
+    public BaseEntity(UUID id, LocalDate createdAt, LocalDate updatedAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
     public BaseEntity() {
-        this.id = EntityId.newId();
+        this.id = UUID.randomUUID();
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
     }
 
-    public EntityId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
