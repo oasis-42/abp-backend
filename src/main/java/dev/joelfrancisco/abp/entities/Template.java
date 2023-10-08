@@ -1,14 +1,23 @@
 package dev.joelfrancisco.abp.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
 import java.net.URL;
 import java.util.*;
-
+@Entity
 public class Template extends BaseEntity {
+    @Column(name = "id_template")
     private UUID template_id;
+    @Column(name = "version")
     private int version;
+    @Column(name = "name")
     private String name;
+    @Column(name = "about")
     private String about;
+    @Column(name = "Link_html")
     private URL linkHTML;
+    @Column(name = "User")
     private User user;
     private final Set<Tag> tags = new HashSet<>();
 
