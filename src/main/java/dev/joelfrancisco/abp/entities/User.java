@@ -2,6 +2,8 @@ package dev.joelfrancisco.abp.entities;
 
 import dev.joelfrancisco.abp.exceptions.UserCreationException;
 import dev.joelfrancisco.abp.valueObjects.UserPassword;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 import java.util.HashSet;
 import java.util.Objects;

@@ -1,15 +1,24 @@
 package dev.joelfrancisco.abp.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
 import java.util.Objects;
 
+@Entity
 public class EmailCredentials extends BaseEntity {
+    @Column(name = "client_id")
     private String clientId;
+    @Column(name = "client_secret")
     private String clientSecret;
 
     public EmailCredentials(String clientId, String clientSecret) {
         super();
         setClientId(clientId);
         setClientSecret(clientSecret);
+    }
+
+    protected EmailCredentials() {
     }
 
     public String getClientId() {

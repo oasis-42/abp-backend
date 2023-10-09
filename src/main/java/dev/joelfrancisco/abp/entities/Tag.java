@@ -1,7 +1,6 @@
 package dev.joelfrancisco.abp.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,8 +10,10 @@ import java.util.Set;
 public class Tag extends BaseEntity {
     @Column(name = "name")
     private String name;
-    @Column(name = "user")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToMany(mappedBy = "recipients", fetch = FetchType.LAZY)
     private final Set<Recipient> recipients = new HashSet<>();
     private final Set<Template> templates = new HashSet<>();
 
@@ -20,6 +21,9 @@ public class Tag extends BaseEntity {
         super();
         setName(name);
         setUser(user);
+    }
+
+    protected Tag() {
     }
 
     public String getName() {

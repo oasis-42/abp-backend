@@ -1,8 +1,6 @@
 package dev.joelfrancisco.abp.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,19 +10,20 @@ import java.util.UUID;
 public abstract class BaseEntity {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "datetime ")
     private LocalDate createdAt;
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    public BaseEntity(UUID id, LocalDate createdAt, LocalDate updatedAt) {
+    protected BaseEntity(UUID id, LocalDate createdAt, LocalDate updatedAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public BaseEntity() {
+    protected BaseEntity() {
         this.id = UUID.randomUUID();
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
@@ -34,7 +33,7 @@ public abstract class BaseEntity {
         return id;
     }
 
-    public void setId(UUID id) {
+    private void setId(UUID id) {
         this.id = id;
     }
 
@@ -42,7 +41,7 @@ public abstract class BaseEntity {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    private void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -50,7 +49,7 @@ public abstract class BaseEntity {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    private void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
