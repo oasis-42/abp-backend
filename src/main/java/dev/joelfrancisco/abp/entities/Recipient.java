@@ -1,11 +1,15 @@
 package dev.joelfrancisco.abp.entities;
 
+import jakarta.persistence.Column;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class Recipient extends BaseEntity {
+    @Column(name = "email")
     private String email;
+    @Column(name = "name")
     private String name;
     private final Set<Tag> tags = new HashSet<>();
 
