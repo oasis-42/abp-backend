@@ -15,6 +15,7 @@ public class Tag extends BaseEntity {
     private User user;
     @ManyToMany(mappedBy = "recipients", fetch = FetchType.LAZY)
     private final Set<Recipient> recipients = new HashSet<>();
+    @ManyToMany(mappedBy = "templates", fetch = FetchType.LAZY)
     private final Set<Template> templates = new HashSet<>();
 
     public Tag(String name, User user) {

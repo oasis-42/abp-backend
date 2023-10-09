@@ -1,5 +1,8 @@
 package dev.joelfrancisco.abp.valueObjects;
 
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+
 import java.util.Objects;
 
 public record Email(String value) {
@@ -23,5 +26,18 @@ public record Email(String value) {
     @Override
     public String toString() {
         return value;
+    }
+
+    @Converter
+    public static class EmailConverter implements AttributeConverter<Email, String> {
+        @Override
+        public String convertToDatabaseColumn(Email email) {
+            return email.value();
+        }
+
+        @Override
+        public Email convertToEntityAttribute(String s) {
+            return new Email(s);
+        }
     }
 }

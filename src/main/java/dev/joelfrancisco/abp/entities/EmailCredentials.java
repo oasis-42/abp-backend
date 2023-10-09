@@ -2,6 +2,8 @@ package dev.joelfrancisco.abp.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.util.Objects;
 
@@ -11,6 +13,9 @@ public class EmailCredentials extends BaseEntity {
     private String clientId;
     @Column(name = "client_secret")
     private String clientSecret;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public EmailCredentials(String clientId, String clientSecret) {
         super();

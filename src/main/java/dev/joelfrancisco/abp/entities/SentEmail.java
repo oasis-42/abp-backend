@@ -2,14 +2,26 @@ package dev.joelfrancisco.abp.entities;
 
 import dev.joelfrancisco.abp.valueObjects.Email;
 import dev.joelfrancisco.abp.valueObjects.EmailStatus;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class SentEmail extends BaseEntity {
+    @Column(name = "sender_email")
+    @Convert(converter = Email.EmailConverter.class)
     private Email senderEmail;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private EmailStatus status;
+    @ManyToOne
+    @JoinColumn(name = "template_id")
     private Template template;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
     private Recipient recipient;
 
     public Email getSenderEmail() {

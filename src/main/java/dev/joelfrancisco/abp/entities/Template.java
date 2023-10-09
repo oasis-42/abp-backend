@@ -1,7 +1,6 @@
 package dev.joelfrancisco.abp.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.net.URL;
 import java.util.*;
@@ -17,8 +16,15 @@ public class Template extends BaseEntity {
     private String about;
     @Column(name = "Link_html")
     private URL linkHTML;
-    @Column(name = "User")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "templates_tags",
+            joinColumns = @JoinColumn(name = "template_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private final Set<Tag> tags = new HashSet<>();
 
     public Template(String name, String about, URL linkHTML, User user) {
@@ -26,6 +32,9 @@ public class Template extends BaseEntity {
         setAbout(about);
         setLinkHTML(linkHTML);
         setUser(user);
+    }
+
+    protected Template() {
     }
 
     public String getName() {

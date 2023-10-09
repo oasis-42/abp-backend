@@ -1,6 +1,8 @@
 package dev.joelfrancisco.abp.valueObjects;
 
 import dev.joelfrancisco.abp.exceptions.InvalidPasswordException;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import java.util.Objects;
 
@@ -93,5 +95,23 @@ public class UserPassword {
     @Override
     public String toString() {
         return value;
+    }
+
+    @Converter
+    public static class UserPasswordConverter implements AttributeConverter<UserPassword, String> {
+
+        @Override
+        public String convertToDatabaseColumn(UserPassword userPassword) {
+            return userPassword.getValue();
+        }
+
+        @Override
+        public UserPassword convertToEntityAttribute(String s) {
+            try {
+                return new UserPassword(s);
+            } catch (InvalidPasswordException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

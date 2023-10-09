@@ -2,8 +2,7 @@ package dev.joelfrancisco.abp.entities;
 
 import dev.joelfrancisco.abp.exceptions.UserCreationException;
 import dev.joelfrancisco.abp.valueObjects.UserPassword;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,11 +15,17 @@ public class User extends BaseEntity {
     @Column(name = "username")
     private String username;
     @Column(name = "password_hash")
+    @Convert(converter = UserPassword.UserPasswordConverter.class)
     private UserPassword passwordHash;
-    @Column(name = "default_email")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "default_email_id")
     private EmailCredentials defaultEmail;
-    @Column(name = "email_credentials")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<EmailCredentials> emailCredentials = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<SentEmail> sentEmails = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Template> templates = new HashSet<>();
 
     private static User newUser(String username, UserPassword passwordHash, String name, Set<EmailCredentials> credentials) throws UserCreationException {
         User user = new User();
