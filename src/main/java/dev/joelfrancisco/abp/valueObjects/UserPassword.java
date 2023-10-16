@@ -1,34 +1,24 @@
 package dev.joelfrancisco.abp.valueObjects;
 
 import dev.joelfrancisco.abp.exceptions.InvalidPasswordException;
+import dev.joelfrancisco.abp.ports.PasswordEncoder;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 public class UserPassword {
+    private final PasswordEncoder passwordEncoder;
     private String value;
 
-    private UserPassword() {
+    private String hash() {
+        return this.passwordEncoder.encode(this);
     }
 
-    public static UserPassword of(String hash) {
-        UserPassword userPassword = new UserPassword();
-        userPassword.setValue(hash);
-        return userPassword;
-    }
-
-    private String hash(String password) {
-        // TODO hash it with Argon2
-        return password;
-    }
-
-    public UserPassword(String value) throws InvalidPasswordException {
-        validateLength(value);
-        validateSymbols(value);
-        validateCapitalized(value);
-        validateNumber(value);
-        this.value = hash(value);
+    public UserPassword(PasswordEncoder passwordEncoder, String value) throws InvalidPasswordException {
+        this.passwordEncoder = passwordEncoder;
+        setValue(value);
     }
 
     private void validateLength(String value) throws InvalidPasswordException {
@@ -42,37 +32,23 @@ public class UserPassword {
     }
 
     private void validateCapitalized(String value) throws InvalidPasswordException {
-        boolean found = false;
-
-        for (char c : value.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
+        if (value.chars().noneMatch(Character::isUpperCase)) {
             throw new InvalidPasswordException("Password should have at least one capitalized letter");
         }
     }
 
     private void validateNumber(String value) throws InvalidPasswordException {
-        boolean found = false;
-
-        for (char c : value.toCharArray()) {
-            if (Character.isDigit(c)) {
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
+        if (value.chars().noneMatch(Character::isDigit)) {
             throw new InvalidPasswordException("Password should have at least one number");
         }
     }
 
-    private void setValue(String value) {
-       this.value = value;
+    private void setValue(String value) throws InvalidPasswordException {
+        validateLength(value);
+        validateSymbols(value);
+        validateCapitalized(value);
+        validateNumber(value);
+        this.value = hash();
     }
 
     public String getValue() {
@@ -98,7 +74,13 @@ public class UserPassword {
     }
 
     @Converter
+    @Component
     public static class UserPasswordConverter implements AttributeConverter<UserPassword, String> {
+        private final PasswordEncoder passwordEncoder;
+
+        public UserPasswordConverter(PasswordEncoder passwordEncoder) {
+            this.passwordEncoder = passwordEncoder;
+        }
 
         @Override
         public String convertToDatabaseColumn(UserPassword userPassword) {
@@ -108,7 +90,7 @@ public class UserPassword {
         @Override
         public UserPassword convertToEntityAttribute(String s) {
             try {
-                return new UserPassword(s);
+                return new UserPassword(passwordEncoder, s);
             } catch (InvalidPasswordException e) {
                 throw new RuntimeException(e);
             }

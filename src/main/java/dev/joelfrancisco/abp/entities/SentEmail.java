@@ -75,15 +75,23 @@ public class SentEmail extends BaseEntity {
     public SentEmail() {
     }
 
-    public void read() {
-        this.status = EmailStatus.READ;
+    public void markAsRead() {
+        setStatus(EmailStatus.READ);
     }
 
-    public void sent() {
-        this.status = EmailStatus.SENT;
+    public void markAsSent() {
+        setStatus(EmailStatus.SENT);
     }
 
     public void fail() {
-        this.status = EmailStatus.FAILED;
+        setStatus(EmailStatus.FAILED);
+    }
+
+    public void process() {
+        setStatus(EmailStatus.PROCESSING);
+    }
+
+    public void schedule() {
+        setStatus(EmailStatus.SCHEDULED);
     }
 }
