@@ -2,10 +2,8 @@ package dev.joelfrancisco.abp.services;
 
 
 import dev.joelfrancisco.abp.entities.EmailCredentials;
-import dev.joelfrancisco.abp.entities.User;
-import dev.joelfrancisco.abp.exceptions.EntityNotFoundException;
+import dev.joelfrancisco.abp.exceptions.NotFoundException;
 import dev.joelfrancisco.abp.repositories.EmailCredentialsRepository;
-import dev.joelfrancisco.abp.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,11 +32,11 @@ public class EmailCredentialsService {
         return repository.findById(id);
     }
 
-    public void update(EmailCredentials emailCredentials) throws EntityNotFoundException {
+    public void update(EmailCredentials emailCredentials) throws NotFoundException {
         if (repository.existsById(emailCredentials.getId())) {
             repository.save(emailCredentials);
         } else {
-            throw new EntityNotFoundException(emailCredentials);
+            throw new NotFoundException(emailCredentials);
         }
     }
 

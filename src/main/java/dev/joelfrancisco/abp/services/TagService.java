@@ -1,10 +1,8 @@
 package dev.joelfrancisco.abp.services;
 
-import dev.joelfrancisco.abp.entities.Recipient;
 import dev.joelfrancisco.abp.entities.Tag;
-import dev.joelfrancisco.abp.exceptions.EntityNotFoundException;
+import dev.joelfrancisco.abp.exceptions.NotFoundException;
 import dev.joelfrancisco.abp.repositories.TagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -33,11 +31,11 @@ public class TagService {
         return repository.findById(id);
     }
 
-    public void update(Tag tag) throws EntityNotFoundException {
+    public void update(Tag tag) throws NotFoundException {
         if (repository.existsById(tag.getId())) {
             repository.save(tag);
         } else {
-            throw new EntityNotFoundException(tag);
+            throw new NotFoundException(tag);
         }
     }
 

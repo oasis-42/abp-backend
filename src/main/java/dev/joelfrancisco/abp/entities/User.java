@@ -17,9 +17,9 @@ public class User extends BaseEntity {
     @Column(name = "password_hash")
     @Convert(converter = UserPassword.UserPasswordConverter.class)
     private UserPassword passwordHash;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "default_email_id")
-    private EmailCredentials defaultEmail;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "default_email_id")
+//    private EmailCredentials defaultEmail;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<EmailCredentials> emailCredentials = new HashSet<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -66,13 +66,13 @@ public class User extends BaseEntity {
         this.passwordHash = passwordHash;
     }
 
-    public EmailCredentials getDefaultEmail() {
-        return defaultEmail;
-    }
-
-    public void setDefaultEmail(EmailCredentials defaultEmail) {
-        this.defaultEmail = defaultEmail;
-    }
+//    public EmailCredentials getDefaultEmail() {
+//        return defaultEmail;
+//    }
+//
+//    public void setDefaultEmail(EmailCredentials defaultEmail) {
+//        this.defaultEmail = defaultEmail;
+//    }
 
     public Set<EmailCredentials> getEmailCredentials() {
         return Set.copyOf(emailCredentials);

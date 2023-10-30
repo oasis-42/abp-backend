@@ -1,6 +1,6 @@
 package dev.joelfrancisco.abp.services;
 
-import dev.joelfrancisco.abp.exceptions.EntityNotFoundException;
+import dev.joelfrancisco.abp.exceptions.NotFoundException;
 import dev.joelfrancisco.abp.repositories.TemplateRepository;
 import dev.joelfrancisco.abp.entities.Template;
 import org.springframework.stereotype.Service;
@@ -16,24 +16,29 @@ public class TemplateService {
         this.repository = repository;
     }
 
-    public void save(Template template) {
+    public Template save(Template template) {
         repository.save(template);
+        return template;
     }
 
-    public Iterable<Template> findAll() {
-        return repository.findAll();
+    public Iterable<Template> findAll(String filter) {
+        return repository.findAll(filter, Template.class);
     }
 
     public Optional<Template> findById(UUID id) {
         return repository.findById(id);
     }
 
-    public void update(Template template) throws EntityNotFoundException {
+    public void update(Template template) throws NotFoundException {
         if (repository.existsById(template.getId())) {
             repository.save(template);
         } else {
-            throw new EntityNotFoundException(template);
+            throw new NotFoundException(template);
         }
+    }
+
+    public void favorite(UUID id) {
+        repository.deleteById(id);
     }
 
     public void removeById(UUID id) {

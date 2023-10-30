@@ -14,6 +14,8 @@ public class Template extends BaseEntity {
     private String name;
     @Column(name = "about")
     private String about;
+    @Column(name = "is_favorite")
+    private boolean isFavorite;
     @Column(name = "Link_html")
     private URL linkHTML;
     @ManyToOne
@@ -91,5 +93,17 @@ public class Template extends BaseEntity {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public void favorite() {
+        this.isFavorite = true;
+    }
+
+    public void setFavorite() {
+        this.isFavorite = true;
+    }
+
+    public void unsetFavorite() {
+        this.isFavorite = false;
     }
 }

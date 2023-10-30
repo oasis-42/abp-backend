@@ -2,10 +2,8 @@ package dev.joelfrancisco.abp.services;
 
 
 import dev.joelfrancisco.abp.entities.SentEmail;
-import dev.joelfrancisco.abp.entities.User;
-import dev.joelfrancisco.abp.exceptions.EntityNotFoundException;
+import dev.joelfrancisco.abp.exceptions.NotFoundException;
 import dev.joelfrancisco.abp.repositories.SentEmailRepository;
-import dev.joelfrancisco.abp.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,11 +32,11 @@ public class SentEmailService {
         return repository.findById(id);
     }
 
-    public void update(SentEmail sentEmail) throws EntityNotFoundException {
+    public void update(SentEmail sentEmail) throws NotFoundException {
         if (repository.existsById(sentEmail.getId())) {
             repository.save(sentEmail);
         } else {
-            throw new EntityNotFoundException(sentEmail);
+            throw new NotFoundException(sentEmail);
         }
     }
 

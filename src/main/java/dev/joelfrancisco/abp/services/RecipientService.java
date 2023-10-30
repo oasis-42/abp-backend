@@ -1,7 +1,7 @@
 package dev.joelfrancisco.abp.services;
 
 import dev.joelfrancisco.abp.entities.Recipient;
-import dev.joelfrancisco.abp.exceptions.EntityNotFoundException;
+import dev.joelfrancisco.abp.exceptions.NotFoundException;
 import dev.joelfrancisco.abp.repositories.RecipientRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +28,11 @@ public class RecipientService {
         return repository.findById(id);
     }
 
-    public void update(Recipient recipient) throws EntityNotFoundException {
+    public void update(Recipient recipient) throws NotFoundException {
         if (repository.existsById(recipient.getId())) {
            repository.save(recipient);
         } else {
-            throw new EntityNotFoundException(recipient);
+            throw new NotFoundException(recipient);
         }
     }
 

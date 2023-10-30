@@ -13,9 +13,20 @@ public class Tag extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToMany(mappedBy = "recipients", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "recipients_tags",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipient_id")
+    )
     private final Set<Recipient> recipients = new HashSet<>();
-    @ManyToMany(mappedBy = "templates", fetch = FetchType.LAZY)
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "templates_tags",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "template_id")
+    )
     private final Set<Template> templates = new HashSet<>();
 
     public Tag(String name, User user) {
