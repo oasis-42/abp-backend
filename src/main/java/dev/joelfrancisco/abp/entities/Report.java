@@ -10,16 +10,14 @@ public class Report extends BaseEntity {
     @Column(name = "id_report")
     private UUID reportId;
     @ManyToOne
-    @JoinColumn(name = "grupo_id")
+    @JoinColumn(name = "group_id")
     @Nullable
-    private Group grupo;
+    private Group group;
 
-    public Report(UUID reportId, @Nullable Group grupo) {
-        this.reportId = reportId;
-        this.grupo = grupo;
-    }
-
-    protected Report() {
+    public Report(@Nullable Group group) {
+        super();
+        setReportId(UUID.randomUUID());
+        setGroup(group);
     }
 
     public UUID getReportId() {
@@ -30,11 +28,11 @@ public class Report extends BaseEntity {
         this.reportId = reportId;
     }
 
-    public Group getGrupo() {
-        return grupo;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGrupo(Group grupo) {
-        this.grupo = grupo;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
