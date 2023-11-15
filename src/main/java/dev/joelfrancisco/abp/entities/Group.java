@@ -13,6 +13,9 @@ public class Group extends BaseEntity {
     private UUID groupId;
     @Column(name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<Recipient> recipients = new HashSet<>();
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)

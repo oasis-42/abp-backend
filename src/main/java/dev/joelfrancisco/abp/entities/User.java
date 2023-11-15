@@ -26,6 +26,10 @@ public class User extends BaseEntity {
     private Set<SentEmail> sentEmails = new HashSet<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Template> templates = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Group> groups = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Report> reports = new HashSet<>();
 
     private static User newUser(String username, UserPassword passwordHash, String name, Set<EmailCredentials> credentials) throws UserCreationException {
         User user = new User();
