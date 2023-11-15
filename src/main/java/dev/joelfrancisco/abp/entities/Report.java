@@ -13,11 +13,15 @@ public class Report extends BaseEntity {
     @JoinColumn(name = "group_id")
     @Nullable
     private Group group;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Report(@Nullable Group group) {
         super();
         setReportId(UUID.randomUUID());
         setGroup(group);
+        setUser(group.getUser());
     }
 
     public UUID getReportId() {
@@ -34,5 +38,13 @@ public class Report extends BaseEntity {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

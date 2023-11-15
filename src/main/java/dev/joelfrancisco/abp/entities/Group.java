@@ -13,6 +13,9 @@ public class Group extends BaseEntity {
     private UUID groupId;
     @Column(name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<Recipient> recipients = new HashSet<>();
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
@@ -50,5 +53,29 @@ public class Group extends BaseEntity {
 
     public void setRecipients(Set<Recipient> recipients) {
         this.recipients = recipients;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(Set<Report> reports) {
+        this.reports = reports;
+    }
+
+    public Set<SentEmail> getSentEmails() {
+        return sentEmails;
+    }
+
+    public void setSentEmails(Set<SentEmail> sentEmails) {
+        this.sentEmails = sentEmails;
     }
 }
