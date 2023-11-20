@@ -7,7 +7,7 @@ import java.util.*;
 @Entity
 public class Template extends BaseEntity {
     @Column(name = "id_template")
-    private UUID template_id;
+    private UUID templateId;
     @Column(name = "version")
     private int version;
     @Column(name = "name")
@@ -79,12 +79,12 @@ public class Template extends BaseEntity {
         this.user = Objects.requireNonNull(user, "user should not be null");
     }
 
-    public UUID getTemplate_id() {
-        return template_id;
+    public UUID getTemplateId() {
+        return templateId;
     }
 
-    public void setTemplate_id(UUID template_id) {
-        this.template_id = template_id;
+    public void setTemplateId(UUID templateId) {
+        this.templateId = templateId;
     }
 
     public int getVersion() {
