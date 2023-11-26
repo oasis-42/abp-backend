@@ -11,6 +11,9 @@ public class Recipient extends BaseEntity {
     private String email;
     @Column(name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "recipients_tags",

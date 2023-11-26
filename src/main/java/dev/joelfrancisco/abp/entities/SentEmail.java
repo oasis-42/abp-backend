@@ -2,6 +2,7 @@ package dev.joelfrancisco.abp.entities;
 
 import dev.joelfrancisco.abp.valueObjects.Email;
 import dev.joelfrancisco.abp.valueObjects.EmailStatus;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -17,6 +18,10 @@ public class SentEmail extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "template_id")
     private Template template;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    @Nullable
+    private Group group;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -64,9 +69,19 @@ public class SentEmail extends BaseEntity {
         this.recipient = Objects.requireNonNull(recipient, "recipient should not be null");
     }
 
-    public SentEmail(Email senderEmail, Template template, User user, Recipient recipient) {
+    @Nullable
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(@Nullable Group group) {
+        this.group = group;
+    }
+
+    public SentEmail(Email senderEmail, EmailStatus status, Template template, @Nullable Group group, User user, Recipient recipient) {
         setSenderEmail(senderEmail);
         setTemplate(template);
+        setGroup(group);
         setUser(user);
         setRecipient(recipient);
         setStatus(EmailStatus.PROCESSING);
