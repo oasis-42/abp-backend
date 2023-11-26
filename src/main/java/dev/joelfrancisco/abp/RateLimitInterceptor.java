@@ -1,4 +1,4 @@
-package dev.joelfrancisco.abp.enterprise;
+package dev.joelfrancisco.abp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 @Component
 public class RateLimitInterceptor extends HandlerInterceptorAdapter {
-    private static final int MAX_REQUESTS_PER_HOUR = 100; // Ajuste conforme necessário
+    private static final int MAX_REQUESTS_PER_HOUR = 150;
     private final RedisTemplate<String, String> redisTemplate;
     @Autowired
     public RateLimitInterceptor(RedisTemplate<String, String> redisTemplate) {
