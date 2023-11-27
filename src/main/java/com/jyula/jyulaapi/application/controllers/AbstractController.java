@@ -1,5 +1,6 @@
 package com.jyula.jyulaapi.application.controllers;
 
+import com.jyula.jyulaapi.core.enterprise.BussinessException;
 import com.jyula.jyulaapi.core.enterprise.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -37,4 +38,12 @@ public abstract class AbstractController {
         return errors;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BussinessException.class)
+    public Map<String, String> handleValidationBussinessException(
+            BussinessException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("erro", ex.getMessage());
+        return errors;
+    }
 }

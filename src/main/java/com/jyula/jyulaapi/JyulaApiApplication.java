@@ -42,14 +42,13 @@ public class JyulaApiApplication {
 	@Bean
 	public JedisConnectionFactory jedisConnectionFactory() {
 		RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
-		redisConfig.setHostName("oregon-redis.render.com");
+		redisConfig.setHostName("");
 		redisConfig.setPort(6379);
-		redisConfig.setPassword("pmV01YGNAM4lLqBmiUJH6D2FBYpJ9UNm");
-		redisConfig.setUsername("red-clccj9bmot1c73df20u0");
+		redisConfig.setPassword("");
+		redisConfig.setUsername("");
 		JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfig = JedisClientConfiguration.builder();
 		jedisClientConfig.connectTimeout(Duration.ofSeconds(60));
 		jedisClientConfig.useSsl();
-
 
 		return new JedisConnectionFactory(redisConfig, jedisClientConfig.build());
 	}

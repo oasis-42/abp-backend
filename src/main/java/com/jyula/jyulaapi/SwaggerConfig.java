@@ -17,7 +17,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.satc.satcloja.resource"))
+                .apis(RequestHandlerSelectors.basePackage("com.jyula.jyulaapi.application.controllers"))
                 .build()
                 .pathMapping("/")
                 .apiInfo(apiInfo());
@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Loja de Informatica")
+                .title("Jyula")
                 .description("Documentação completa")
                 .version("1.0")
                 .build();
