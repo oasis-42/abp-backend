@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: 'postgres-dev'
+    image: 'postgres:14.1-alpine'
+    env_file:
+      - .env
+    ports:
+      - '54320:5432'
+    volumes:
+      - postgres_data:/data/postgres
+    restart: unless-stopped
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379'
+volumes:
+  postgres_data:
